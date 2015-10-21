@@ -22,7 +22,7 @@ server.get('/gallery/:id', function(req, res) {
 
 // This page displays a form that the user can upload a new photo
 server.get('/gallery/new', function(req,res) {
-  res.send('This is a new picture form');
+  res.render('gallery-new');
 });
 
 // user wants to create a new gallery photo
