@@ -1,5 +1,6 @@
 var express = require('express');
 var server = express();
+var dbPics = requires('dbPictures.JSON');
 
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
@@ -11,13 +12,13 @@ server.use(express.static('./public'));
 
 server.get('/', function(req,res) {
   res.render('index', {
-
+    pics : dbPics
   });
 });
 
 // This page displace a single photo in the gallery
 server.get('/gallery/:id', function(req, res) {
-  res.send('This is the a photo');
+  res.render('picture-detail');
 });
 
 // This page displays a form that the user can upload a new photo

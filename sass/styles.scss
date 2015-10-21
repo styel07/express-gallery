@@ -1,11 +1,11 @@
 @import 'partials/settings';
-@import "foundation/components/grid";
+@import 'foundation/components/grid';
 
 $bright : #333;
 $header-color : #676269;
 
 body {
-  background : #FFF;
+  background : #F8FFD1;
 
   // text color
   color : #7C7575;
@@ -21,4 +21,20 @@ a {
 
 #name {
   border: 1px solid black;
+}
+
+#header {
+  div#header-text {
+    padding-top: 50%;
+    border-left: 1px solid;
+    p {
+      color:maroon;
+    }
+  }
+}
+
+hr {
+  border:1px dotted #333;
+  color:#fff;
+  width:100%;
 }

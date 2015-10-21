@@ -1197,7 +1197,7 @@ select {
 
 /* line 7, stdin */
 body {
-  background: #FFF;
+  background: #F8FFD1;
   color: #7C7575; }
 
 /* line 14, stdin */
@@ -1211,3 +1211,17 @@ a {
 /* line 22, stdin */
 #name {
   border: 1px solid black; }
+
+/* line 27, stdin */
+#header div#header-text {
+  padding-top: 50%;
+  border-left: 1px solid; }
+  /* line 30, stdin */
+  #header div#header-text p {
+    color: maroon; }
+
+/* line 36, stdin */
+hr {
+  border: 1px dotted #333;
+  color: #fff;
+  width: 100%; }

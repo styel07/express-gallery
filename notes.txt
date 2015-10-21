@@ -1,0 +1,7 @@
+Things done
+  - created a JSON file for images
+
+To Do
+  - create a way to connect to other pages and push info via GET POST to other pages
+  - fix sass
+  - fix templates

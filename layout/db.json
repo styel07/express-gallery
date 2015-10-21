@@ -1,0 +1,29 @@
+module.exports = {
+  "posts" : [
+    {
+      "id" : 0,
+      "image" : "/images/big-pic.png"
+    },
+    {
+      "id" : 1,
+      "image" : "/images/jazz-pic1.jpeg"
+    },
+    {
+      "id" : 2,
+      "image" : "/images/jazz-pic2.jpg"
+    },
+    {
+      "id" : 3,
+      "image" : "/images/jazz-pic3.jpeg"
+    },
+    {
+      "id" : 4,
+      "image" : "/images/jazz-pic4.jpeg"
+    },
+    {
+      "id" : 5,
+      "image" : "/images/jazz-pic5.jpeg"
+    }
+  ]
+}
+
