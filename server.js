@@ -1,6 +1,9 @@
 var express = require('express');
 var server = express();
-var dbPics = requires('dbPictures.JSON');
+var db = require('./models');
+var gallery = db.Gallery;
+var bodyParser = require('body-parser');
+var post = db.Post;
 
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
@@ -10,10 +13,36 @@ server.set('views', './views');
 
 server.use(express.static('./public'));
 
+//File path: {{project_directory}}/routes/users.js
+server.use(bodyParser.json());
+
+server.use(bodyParser.urlencoded({
+  extended : true
+}));
+
+// Gets all posts in gallery
 server.get('/', function(req,res) {
-  res.render('index', {
-    pics : dbPics
+  //console.log(db);
+  gallery.findAll()
+  .then(function(gallery) {
+    console.log(gallery);
+  })
+  .catch(function(err) {
+    console.log(err);
   });
+
+  // res.render('index', {
+  //   posts :
+  // });
+});
+
+// Creates a new post
+server.post('/', function(req, res) {
+  res.render('index');
+  User.findAll()
+    .then(function (posts) {
+      res.json(posts);
+    });
 });
 
 // This page displace a single photo in the gallery
@@ -24,6 +53,14 @@ server.get('/gallery/:id', function(req, res) {
 // This page displays a form that the user can upload a new photo
 server.get('/gallery/new', function(req,res) {
   res.render('gallery-new');
+  Post.create({
+    author : req.body.url,
+    url : req.body.url,
+    description : req.body.url
+  })
+  .then(function(post) {
+    res.json(post);
+  });
 });
 
 // user wants to create a new gallery photo
@@ -50,6 +87,6 @@ server.delete('gallery/:id', function(req,res) {
 var app = server.listen(3000, function() {
   var host = app.address().address;
   var port = app.address().port;
-
+  db.sequelize.sync();
   console.log('Example app listening at http://%s:%s', host, port);
 });
