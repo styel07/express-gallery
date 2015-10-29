@@ -51,19 +51,18 @@ server.get('/gallery/:id', function(req, res) {
 // This page displays a form that the user can upload a new photo
 server.get('/gallery/new', function(req,res) {
   res.render('gallery-new');
-  Post.create({
-    author : req.body.url,
-    url : req.body.url,
-    description : req.body.url
-  })
-  .then(function(post) {
-    res.json(post);
-  });
 });
 
 // user wants to create a new gallery photo
 server.post('/gallery', function(req, res) {
-  res.send('you can send photos to the gallery on this page');
+  post.create({
+    author : req.body.author,
+    url : req.body.url,
+    description : req.body.description
+  })
+  .then(function(post) {
+    res.json(post);
+  });
 });
 
 // gets a page where you can edit the photo selected in the id: param
