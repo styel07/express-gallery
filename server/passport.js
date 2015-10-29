@@ -1,10 +1,11 @@
-module.exports =  function(app) {
+module.exports =  function() {
+  var express = require('express');
+  var app = express.Router();
 
   var passport = require('passport');
   var LocalStrategy = require('passport-local').Strategy;
 
   app.use(passport.initialize());
-
   // this has to be after the body parser
   app.use(passport.session());
 
@@ -38,15 +39,15 @@ module.exports =  function(app) {
     }
   ));
 
-  app.post('login',
+  app.post('/',
     passport.authenticate('local', {
-      successRedirect : '/secret',  // if authentication pass it sends you to secret
+      successRedirect : '/',  // if authentication pass it sends you to secret
       failureReirect : '/login',    // if authentication fails it sends you to login and flashes error
       failureFlash : true, info : 'WRONG!@!!!!!' })
   );
 
   // once users are authenticated it can continue to route
-  app.get('secret', ensureAuthenticated, function(req, res) {
+  app.get('/secret', ensureAuthenticated, function(req, res) {
     res.send('secret');
   });
 
@@ -57,6 +58,7 @@ module.exports =  function(app) {
 
   var User = {
     findOne : function(opts, cb) {
+console.log("passport");
       var user = {
         id : 2,
         username : opts.username,
@@ -68,4 +70,5 @@ module.exports =  function(app) {
       cb(null, user);
     }
   };
+  return app;
 };

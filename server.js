@@ -4,7 +4,7 @@ var db = require('./models');
 var gallery = db.Gallery;
 var post = db.Posts;
 var bodyParser = require('body-parser');
-var passport = require('passport')(server);
+var passport = require('./server/passport.js');
 
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
@@ -21,7 +21,7 @@ server.use(bodyParser.urlencoded({
   extended : true
 }));
 
-server.use('/' , passport);
+server.use('/login' , passport);
 
 // Gets all posts in gallery
 server.get('/', function(req, res) {
