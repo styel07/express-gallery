@@ -4,6 +4,7 @@ var db = require('./models');
 var gallery = db.Gallery;
 var post = db.Posts;
 var bodyParser = require('body-parser');
+var passport = require('passport')(server);
 
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
@@ -19,6 +20,8 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
   extended : true
 }));
+
+server.use('/' , passport);
 
 // Gets all posts in gallery
 server.get('/', function(req, res) {
@@ -43,32 +46,42 @@ server.post('/', function(req, res) {
     });
 });
 
-// This page displace a single photo in the gallery
-server.get('/gallery/:id', function(req, res) {
-  res.render('picture-detail');
-});
-
-// This page displays a form that the user can upload a new photo
-server.get('/gallery/new', function(req,res) {
-  res.render('gallery-new');
-});
-
 // user wants to create a new gallery photo
 server.post('/gallery', function(req, res) {
+  console.log(req.body);
   post.create({
     author : req.body.author,
     url : req.body.url,
     description : req.body.description
   })
   .then(function(post) {
-    res.json(post);
+    res.redirect('/');
+  });
+});
+
+//res.json(post);
+
+// This page displays a form that the user can upload a new photo
+server.get('/gallery/new', function(req,res) {
+  res.render('addForm');
+});
+
+// This page displace a single photo in the gallery
+server.get('/gallery/:id', function(req, res) {
+  post.findOne({ where : { id : req.params.id }
+  })
+  .then(function (post) {
+    console.log('this is the post ', post);
+    res.render('picture-detail', {
+      singlePost : post
+    });
   });
 });
 
 // gets a page where you can edit the photo selected in the id: param
 server.get('/gallery/:id/edit', function(req, res) {
   res.send('edit photos here!');
-});
+});~
 
 // you can update a gallery photo identified by the :id param
 server.put('/gallery/:id', function(req,res) {
