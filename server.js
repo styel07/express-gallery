@@ -2,8 +2,8 @@ var express = require('express');
 var server = express();
 var db = require('./models');
 var gallery = db.Gallery;
+var post = db.Posts;
 var bodyParser = require('body-parser');
-var post = db.Post;
 
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
@@ -21,24 +21,22 @@ server.use(bodyParser.urlencoded({
 }));
 
 // Gets all posts in gallery
-server.get('/', function(req,res) {
+server.get('/', function(req, res) {
   //console.log(db);
-  gallery.findAll()
-  .then(function(gallery) {
-    console.log(gallery);
-  })
-  .catch(function(err) {
-    console.log(err);
+  post.findAll()
+  .then(function(postItem) {
+    res.render('index', {
+      postItem : postItem
+    });
   });
-
-  // res.render('index', {
-  //   posts :
+  // .catch(function(err) {
+  //   console.log(err);
   // });
 });
 
 // Creates a new post
 server.post('/', function(req, res) {
-  res.render('index');
+  // res.render('index');
   User.findAll()
     .then(function (posts) {
       res.json(posts);
@@ -68,7 +66,7 @@ server.post('/gallery', function(req, res) {
   res.send('you can send photos to the gallery on this page');
 });
 
-// gets a page where you can edit the photo selected in the id: paam
+// gets a page where you can edit the photo selected in the id: param
 server.get('/gallery/:id/edit', function(req, res) {
   res.send('edit photos here!');
 });

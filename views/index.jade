@@ -1,5 +1,7 @@
 extends ./layout/mainLayout
 
+include ./mixins/post-template.jade
+
 block indexContent
   div.row#header
     div.small-8.medium-8.large-8.columns
@@ -8,5 +10,4 @@ block indexContent
       div#header-text
         p.
           Music is food for the heart. Jazz is food for the soul.
-
-  include ./template/post-template.jade
+  +generatePosts(postItem)
