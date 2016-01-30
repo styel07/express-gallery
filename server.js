@@ -6,6 +6,7 @@ var User = db.user;
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -32,9 +33,7 @@ server.use(bodyParser.urlencoded({
 
 server.use(passport.initialize());
 
-
 server.use(bodyParser.json());
-
 
 // this has to be after the body parser
 server.use(passport.session());
@@ -64,11 +63,11 @@ passport.use(new LocalStrategy(
     User.findOne({ where : { username : username } })
       .then(function (user) {
         if (!user) {
-        console.log('error not user');
+          console.log('error not user');
           return done(null, false, { message : 'Incorrect username.' });
         }
         if (user.password !== password) {
-        console.log('error not password', password, user.password);
+          console.log('error not password', password, user.password);
           return done(null, false, { message : 'Incorrect password.' });
         }
         console.log('passed');
@@ -112,7 +111,7 @@ server.get('/', function(req, res) {
   // });
 });
 
- // Creates a new post
+// Creates a new post
 server.post('/', function(req, res) {
   // res.render('index');
   User.findAll()
@@ -153,20 +152,33 @@ server.get('/gallery/:id', function(req, res) {
   });
 });
 
-// // gets a page where you can edit the photo selected in the id: param
-// server.get('/gallery/:id/edit', function(req, res) {
-//   res.send('edit photos here!');
-// });~
+// gets a page where you can edit the photo selected in the id: param
+server.get('/gallery/:id/edit', function(req, res) {
+  res.send('edit photos here!');
+});
 
 // // you can update a gallery photo identified by the :id param
 // server.put('/gallery/:id', function(req,res) {
 //   res.send('You can update a photo here!');
 // });
 
+
 // // Deletes a photo identified by the param id
 // server.delete('gallery/:id', function(req,res) {
 //   res.send('Delete stuff here');
 // });
+server.get('/gallery/:id/', function(req, res) {
+// server.use('/gallery/delete', methodOverride(function(req, res){
+  // if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+  //   // look in urlencoded POST bodies and delete it
+  //   var method = req.body._method;
+  //   delete req.body._method;
+  //   res.render('deleteForm');
+  //   return method;
+  // }
+// }));
+    res.render('deleteForm');
+});
 
 // expresses version of setting up a new server
 var app = server.listen(3000, function() {

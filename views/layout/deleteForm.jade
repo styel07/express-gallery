@@ -1,0 +1,13 @@
+extends ./layout/mainLayout
+block indexContent
+  h1 Delete Form
+  form(action="/gallery/:id", method="POST", enctype="application/x-www-form-urlencoded")
+    input(type="hidden", name="_method", value="DELETE")
+    button(type="submit")
+
+
+//- <!-- enctype must be set to the type you will parse before methodOverride() -->
+//- <form method="POST" action="/resource" enctype="application/x-www-form-urlencoded">
+//-   <input type="hidden" name="_method" value="DELETE">
+//-   <button type="submit">Delete resource</button>
+//- </form>

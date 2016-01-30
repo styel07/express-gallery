@@ -5,6 +5,10 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/css/styles.css")
   body
+    if user
+      include ../partials/user.jade
+    else
+      include ../partials/guest.jade
     // include files from index.jade
     block indexContent
 
@@ -13,8 +17,3 @@ html
     script(src="/js/foundation.min.js")
     script.
       $(document).foundation()
-
-    if user
-      include ../partials/user.jade
-    else
-      include ../partials/guest.jade
