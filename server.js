@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var jade = require('jade');
 // Tell Express which Template engine we are using by NPM module name
 server.set('view engine', 'jade');
 
